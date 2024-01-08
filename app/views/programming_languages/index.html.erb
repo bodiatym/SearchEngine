@@ -1,18 +1,21 @@
-
-<body>
-<h4> Programming language list</h4>
-<div class="search-container">
-  <%= form_tag(root_path, method: :get) do %>
-    <%= text_field_tag(:search, params[:search], name: 'search', class: "search-input" ) %>
-    <%= button_tag( :class => "search-btn") do %>
-      <i class="fas fa-search"></i>
+<div class="list-container">
+  <h2>Programming languages</h2>
+  <div class="search-wrapper">
+    <div class="search">
+      <%= form_tag(root_path, method: :get) do %>
+        <%= text_field_tag(:search, params[:search]) %>
+        <%= button_tag( :class => "search-btn") do %>
+          <i class="fas fa-search"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <ul class="list">
+    <% @languages_hash.each do |lang|%>
+    <li>
+      <span class="circle"></span>
+      <%= lang['Name'] %> Type: <%= lang['Type'] %> Designed by: <%= lang['Designed by']%>
+    </li>
     <% end %>
-  <% end %>
+  </ul>
 </div>
-
-  <% @languages_hash.each do |lang|%>
-    <ul class="list">
-      <li> <%= lang['Name'] %> Type: <%= lang['Type'] %> Designed by: <%= lang['Designed by']%> </li>
-    </ul>
-  <% end %>
-</body>
