@@ -1,0 +1,84 @@
+body {
+  margin: 10px;
+  padding: 10px;
+  background-color: #b2e0df;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container {
+  background: #fff;
+  height: 30px;
+  border-radius: 30px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.8s;
+  margin-bottom: 20px; /* Додали відступ снизу для розділення від result-container */
+}
+
+.search-container .search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 400px;
+  font-weight: 500;
+  font-size: 16px;
+  transition: 0.8s;
+}
+
+.search-container .search-btn .fas {
+  color: #5cbdbb;
+}
+
+.search-btn {
+  background: transparent;
+  border: none;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,500,300italic,500italic,700italic,900,300);
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+
+  li {
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 10pt;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #656565;
+    transition: all .3s ease;
+
+    &:hover {
+      background: #5c7fed;
+      color: #fff;
+
+      .circle {
+        color: #fff;
+      }
+    }
+
+    .circle {
+      margin-right: 10px;
+      align-self: center;
+      color: #6ecc8b;
+
+      &::before {
+        content: "\2022";
+        font-size: 23pt;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+

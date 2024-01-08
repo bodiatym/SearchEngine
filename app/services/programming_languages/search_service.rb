@@ -13,7 +13,6 @@ module ProgrammingLanguages
     end
 
     def call
-      return @language_list unless @term
       language_indexes = find_languages(@term)
       @language_list.values_at(*language_indexes)
     end
@@ -21,19 +20,24 @@ module ProgrammingLanguages
     private
 
     def find_languages(term)
-      term = term.downcase.split
-      term_result = []
-      final_result = []
-      negative_term = term.select { |element| element =~ /^-/ }
-      right_term = term.reject { |element| element =~ /^-/ }
+      negative_term = []
+      if term.present?
+        term = term.downcase.split
+        term_result = []
+        negative_term = term.select { |element| element =~ /^-/ }
+        right_term = term.reject { |element| element =~ /^-/ }
 
-      right_term.each do |term|
-        term_result << @search_language_list[term]
+        right_term.each do |term|
+          term_result << @search_language_list[term]
+        end
+
+        final_result = term_result.reduce(:&)
       end
 
-      final_result = term_result.reduce(:&) unless term_result.include?(nil)
+      all_language_indexes = (0..@language_list.count - 1).to_a
+      final_result = all_language_indexes if final_result.nil?
 
-      if negative_term
+      if negative_term.present?
         negative_result = []
         negative_term = negative_term.map { |element| element.sub(/^(-)/, '') }
         negative_term.each do |term|
