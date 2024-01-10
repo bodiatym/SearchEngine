@@ -42,13 +42,13 @@ module ProgrammingLanguages
     def find_negative_term_result(terms)
       result = []
       all_languages_index = (0..@language_list.count - 1).to_a
-      prepare_negative_terms(terms).each { |term| result << @search_language_list[term] }
+      negative_terms(terms).each { |term| result << @search_language_list[term] }
 
       result = result.flatten.uniq
       all_languages_index.reject { |element| result.include?(element) }
     end
 
-    def prepare_negative_terms(terms)
+    def negative_terms(terms)
       negative_terms = terms.select { |element| element =~ /^-/ } # choose only negative terms
 
       negative_terms.map { |element| element.sub(/^(-)/, '') } # remove '-' from terms
