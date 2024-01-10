@@ -2,7 +2,6 @@
 
 module ProgrammingLanguages
   class CreatePreparedDataFileService < ApplicationService
-
     def call
       programming_languages = ::ParseJsonService.call('data.json')
       prepare_data(programming_languages)

@@ -2,9 +2,6 @@
 
 module ProgrammingLanguages
   class SearchService < ApplicationService
-
-    attr_reader :term
-
     def initialize(term)
       super()
       @term = term
@@ -13,41 +10,48 @@ module ProgrammingLanguages
     end
 
     def call
+      return @language_list unless @term.present?
+
       language_indexes = find_languages(@term)
+
       @language_list.values_at(*language_indexes)
     end
 
     private
 
     def find_languages(term)
-      negative_term = []
-      if term.present?
-        term = term.downcase.split
-        term_result = []
-        negative_term = term.select { |element| element =~ /^-/ }
-        right_term = term.reject { |element| element =~ /^-/ }
+      prepared_terms = term.downcase.split
 
-        right_term.each do |term|
-          term_result << @search_language_list[term]
-        end
+      normal_term_result = find_normal_term_result(prepared_terms)
+      negative_result = find_negative_term_result(prepared_terms)
 
-        final_result = term_result.reduce(:&)
-      end
+      normal_term_result ? (normal_term_result & negative_result) : negative_result
+    end
 
-      all_language_indexes = (0..@language_list.count - 1).to_a
-      final_result = all_language_indexes if final_result.nil?
+    def find_normal_term_result(terms)
+      result = []
 
-      if negative_term.present?
-        negative_result = []
-        negative_term = negative_term.map { |element| element.sub(/^(-)/, '') }
-        negative_term.each do |term|
-          negative_result << @search_language_list[term]
-        end
-        negative_result = negative_result.flatten.uniq
-        final_result = final_result.reject { |element| negative_result.include?(element) }
-      end
+      normal_terms = terms.reject { |element| element =~ /^-/ } # Remove negative term
 
-      final_result
+      normal_terms.each { |term| result << @search_language_list[term] if @search_language_list[term] != nil }
+
+      return result if result.empty? && normal_terms.any?
+      result.reduce(:&)
+    end
+
+    def find_negative_term_result(terms)
+      result = []
+      all_languages_index = (0..@language_list.count - 1).to_a
+      prepare_negative_terms(terms).each { |term| result << @search_language_list[term] }
+
+      result = result.flatten.uniq
+      all_languages_index.reject { |element| result.include?(element) }
+    end
+
+    def prepare_negative_terms(terms)
+      negative_terms = terms.select { |element| element =~ /^-/ } # choose only negative terms
+
+      negative_terms.map { |element| element.sub(/^(-)/, '') } # remove '-' from terms
     end
   end
 end
