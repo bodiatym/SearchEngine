@@ -11,11 +11,18 @@
     </div>
   </div>
   <ul class="list">
-    <% @languages_hash.each do |lang|%>
-    <li>
-      <span class="circle"></span>
-      <h5> <%= lang['Name'] %> </h5> <%= lang['Type'] %> Designed by:<%= lang['Designed by']%>
-    </li>
+    <% if @languages_hash.empty?  %>
+      <li>
+        <span class="circle"></span>
+        <h5> No Results Found</h5>
+      </li>
+    <% else  %>
+      <% @languages_hash.each do |lang|%>
+      <li>
+        <span class="circle"></span>
+        <h5> <%= lang['Name'] %> </h5> <%= lang['Type'] %> Designed by:<%= lang['Designed by']%>
+      </li>
+      <% end %>
     <% end %>
   </ul>
 </div>
