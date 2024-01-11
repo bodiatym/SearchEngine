@@ -12,3 +12,7 @@ Things you may want to cover:
 * Run bundle install
 * rails s
 * and you can test search
+
+- You can edit Data, add new element or edit exists in data.json
+Then click "Prepare data" button on top right corner to make data searchable
+- Data must be in following format:   {"Name": "ExampleName", "Type": "ExampleType1, ExampleType2, ", "Designed by": "Example Name" }

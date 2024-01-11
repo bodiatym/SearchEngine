@@ -4,6 +4,24 @@
   box-sizing: border-box;
 }
 
+.data-button {
+  margin-top: 40px;
+  margin-left: 86%;
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 15px;
+  height: 35px;
+  width: 150px;
+  background-color: white;
+  color: #494277;
+  padding: 0 10px;
+  &:hover{
+    box-shadow: 10px 10px 10px rgba(39, 44, 52, 0.44);
+  }
+}
+
 body {
   font-family: "Roboto", 'Helvetica Neue, Helvetica, Arial';
   background: #2e5ec5;
@@ -30,6 +48,7 @@ body {
     padding-right: 3px;
   }
 }
+
 
 .search-wrapper {
   form{
