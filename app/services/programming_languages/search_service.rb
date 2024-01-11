@@ -11,6 +11,7 @@ module ProgrammingLanguages
 
     def call
       return @language_list unless @term.present?
+      return [] if @language_list.nil? || @search_language_list.nil?
 
       language_indexes = find_languages(@term)
 

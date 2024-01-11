@@ -11,7 +11,11 @@ class ParseJsonService < ApplicationService
   end
 
   def call
+    begin
     file = File.read(file_path)
+    rescue Errno::ENOENT
+      return nil
+    end
     JSON.parse(file)
   end
 end
