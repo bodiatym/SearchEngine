@@ -33,9 +33,10 @@ module ProgrammingLanguages
 
       normal_terms = terms.reject { |element| element =~ /^-/ } # Remove negative term
 
-      normal_terms.each { |term| result << @search_language_list[term] if @search_language_list[term] != nil }
+      normal_terms.each { |term| result << @search_language_list[term] unless @search_language_list[term].nil? }
 
       return result if result.empty? && normal_terms.any?
+
       result.reduce(:&)
     end
 
