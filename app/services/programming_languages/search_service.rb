@@ -29,22 +29,14 @@ module ProgrammingLanguages
     end
 
     def find_normal_term_result(terms)
-      result = []
       normal_terms = terms.reject { |element| element =~ /^-/ } # Remove negative term
 
-      normal_terms.each { |term| result << @search_language_list[term] unless @search_language_list[term].nil? }
-
-      return result if result.empty? && normal_terms.any?
-
-      result.reduce(:&)
+      normal_terms.map { |term| @search_language_list[term].nil? ? [] : @search_language_list[term] }.reduce(:&)
     end
 
     def find_negative_term_result(terms)
-      result = []
       all_languages_index = (0..@language_list.count - 1).to_a
-      negative_terms(terms).each { |term| result << @search_language_list[term] }
-
-      result = result.flatten.uniq
+      result = negative_terms(terms).map { |term| @search_language_list[term] }.flatten.uniq
       all_languages_index.reject { |element| result.include?(element) }
     end
 
